@@ -6,6 +6,7 @@ import {AceEditorModule} from 'ng2-ace-editor';
 import {AppComponent} from './app.component';
 import {PropertiesEditorComponent} from './properties-editor/properties-editor.component';
 import {YamlEditorComponent} from './yaml-editor/yaml-editor.component';
+import {IconModule} from '@visurel/iconify-angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {YamlEditorComponent} from './yaml-editor/yaml-editor.component';
   imports: [
     BrowserModule,
     NgbModule,
-    AceEditorModule
+    AceEditorModule,
+    IconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
