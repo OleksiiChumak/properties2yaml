@@ -7,12 +7,14 @@ import {AppComponent} from './app.component';
 import {PropertiesEditorComponent} from './properties-editor/properties-editor.component';
 import {YamlEditorComponent} from './yaml-editor/yaml-editor.component';
 import {IconModule} from '@visurel/iconify-angular';
+import { YamlToPropertiesConverterComponent } from './yaml-to-properties-converter/yaml-to-properties-converter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PropertiesEditorComponent,
-    YamlEditorComponent
+    YamlEditorComponent,
+    YamlToPropertiesConverterComponent
   ],
   imports: [
     BrowserModule,

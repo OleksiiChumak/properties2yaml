@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import 'brace/mode/yaml';
 
 @Component({
@@ -11,14 +11,8 @@ export class YamlEditorComponent implements OnInit {
     showLineNumbers: true,
     tabSize: 2
   };
-  text = `# An employee record
-martin:
-    name: Martin D'vloper
-    job: Developer
-    skill: Elite
----
-martin: {name: Martin D'vloper, job: Developer, skill: Elite}
-['Apple', 'Orange', 'Strawberry', 'Mango']`;
+  @Input() text: string;
+  @Output() textChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
   }
@@ -26,4 +20,7 @@ martin: {name: Martin D'vloper, job: Developer, skill: Elite}
   ngOnInit() {
   }
 
+  onChange(code) {
+    this.textChange.emit(code);
+  }
 }

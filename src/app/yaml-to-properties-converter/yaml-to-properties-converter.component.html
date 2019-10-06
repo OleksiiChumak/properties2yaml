@@ -1,0 +1,22 @@
+<div class="container fill-height">
+  <div class="row fill-height">
+    <div class="col-sm">
+      <app-properties-editor></app-properties-editor>
+    </div>
+    <div class="col-sm-auto">
+<!--      <button type="button" class="btn btn-primary">-->
+<!--        <ic-icon [icon]="properties2yamlIcon"></ic-icon>-->
+<!--      </button>-->
+<!--      <br>-->
+      <button type="button" class="btn btn-primary" (click)="convertYamlToProperties()">
+        <ic-icon [icon]="yaml2propertiesIcon"></ic-icon>
+      </button>
+    </div>
+    <div class="col-sm">
+      <div *ngIf="!!yamlAlert" class="alert alert-danger" role="alert">
+        {{yamlAlert}}
+      </div>
+      <app-yaml-editor [(text)]="yamlText"></app-yaml-editor>
+    </div>
+  </div>
+</div>
