@@ -8,10 +8,9 @@ phases:
 #      - npm install -g @angular/cli
   build:
     commands:
+      - ln -s /var/lib/dbus/machine-id /etc/machine-id
       - npm run build:$ENVIRONMENT
-  post_build:
-    commands:
-       - aws s3 sync dist/yaml2properties $S3_BUCKET --delete
+      - aws s3 sync dist/yaml2properties $S3_BUCKET --delete
 artifacts:
   files:
     - '**/*'
