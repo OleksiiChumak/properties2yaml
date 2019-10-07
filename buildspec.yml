@@ -8,6 +8,8 @@ phases:
 #      - npm install -g @angular/cli
   build:
     commands:
+      - systemd-machine-id-setup
+#      - ln -sf /etc/machine-id /var/lib/dbus/machine-id
 #      - ln -s /var/lib/dbus/machine-id /etc/machine-id
       - npm run build:$ENVIRONMENT
       - aws s3 sync dist/yaml2properties $S3_BUCKET --delete
