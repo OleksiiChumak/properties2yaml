@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import 'brace/mode/yaml';
 
 @Component({
   selector: 'app-yaml-editor',

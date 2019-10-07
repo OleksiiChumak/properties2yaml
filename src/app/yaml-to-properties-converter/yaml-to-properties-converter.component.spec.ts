@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { YamlToPropertiesConverterComponent } from './yaml-to-properties-converter.component';
+import {YamlToPropertiesConverterComponent} from './yaml-to-properties-converter.component';
+import {PropertiesEditorComponent} from '../properties-editor/properties-editor.component';
+import {YamlEditorComponent} from '../yaml-editor/yaml-editor.component';
+import {IconModule} from '@visurel/iconify-angular';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 describe('YamlToPropertiesConverterComponent', () => {
   let component: YamlToPropertiesConverterComponent;
@@ -8,9 +12,13 @@ describe('YamlToPropertiesConverterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YamlToPropertiesConverterComponent ]
+      declarations: [YamlToPropertiesConverterComponent,
+        PropertiesEditorComponent,
+        YamlEditorComponent
+      ],
+      imports: [AceEditorModule, IconModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

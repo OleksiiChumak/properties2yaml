@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { YamlEditorComponent } from './yaml-editor.component';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 describe('YamlEditorComponent', () => {
   let component: YamlEditorComponent;
@@ -8,7 +9,8 @@ describe('YamlEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YamlEditorComponent ]
+      declarations: [ YamlEditorComponent ],
+      imports: [AceEditorModule]
     })
     .compileComponents();
   }));

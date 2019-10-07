@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import 'brace/mode/properties';
 
 @Component({
   selector: 'app-properties-editor',
