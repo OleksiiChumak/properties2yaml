@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-properties-editor',
@@ -11,10 +11,8 @@ export class PropertiesEditorComponent implements OnInit {
     showLineNumbers: true,
     tabSize: 2
   };
-  text = `#Thu Apr 11 17:37:58 SRET 2019
-db.user=mkyong
-db.password=password
-db.url=localhost`;
+  @Input() text: string;
+  @Output() textChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
   }
@@ -22,4 +20,7 @@ db.url=localhost`;
   ngOnInit() {
   }
 
+  onChange(code) {
+    this.textChange.emit(code);
+  }
 }
