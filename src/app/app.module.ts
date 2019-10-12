@@ -9,9 +9,6 @@ import {YamlEditorComponent} from './yaml-editor/yaml-editor.component';
 import {IconModule} from '@visurel/iconify-angular';
 import { YamlToPropertiesConverterComponent } from './yaml-to-properties-converter/yaml-to-properties-converter.component';
 
-import 'brace/mode/properties';
-import 'brace/mode/yaml';
-
 @NgModule({
   declarations: [
     AppComponent,

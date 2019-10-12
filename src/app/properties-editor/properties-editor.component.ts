@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import 'brace';
+import 'brace/mode/properties';
 
 @Component({
   selector: 'app-properties-editor',
