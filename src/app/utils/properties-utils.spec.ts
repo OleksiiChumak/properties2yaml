@@ -1,15 +1,15 @@
-import {PropertiesUtils} from './properties-utils';
+import {stringifyProperties} from './properties-utils';
 import {safeLoad} from 'js-yaml';
 
 describe('PropertiesUtils', () => {
   it('should convert one property yaml', () => {
     const testObj = {property: 'value'};
-    expect(PropertiesUtils.stringify(testObj)).toEqual('property=value');
+    expect(stringifyProperties(testObj)).toEqual('property=value');
   });
 
   it('should convert array yaml', () => {
     const testObj = {property: [1, 2, 3, 4]};
-    expect(PropertiesUtils.stringify(testObj)).toEqual('property[0]=1\n' +
+    expect(stringifyProperties(testObj)).toEqual('property[0]=1\n' +
       'property[1]=2\n' +
       'property[2]=3\n' +
       'property[3]=4');
@@ -35,7 +35,7 @@ describe('PropertiesUtils', () => {
       '    4 GCSEs\n' +
       '    3 A-Levels\n' +
       '    BSc in the Internet of Things');
-    expect(PropertiesUtils.stringify(testObj)).toEqual('name=Martin D\'vloper\n' +
+    expect(stringifyProperties(testObj)).toEqual('name=Martin D\'vloper\n' +
       'job=Developer\n' +
       'skill=Elite\n' +
       'employed=true\n' +

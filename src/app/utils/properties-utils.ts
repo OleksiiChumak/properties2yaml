@@ -8,12 +8,12 @@ export function stringifyProperties(obj: any): string {
   } else if (obj instanceof Array) {
     throw new PropertiesError('Cannot convert Array to properties');
   }
-  return this.propertyToString(obj).join('\n');
+  return propertyToString(obj).join('\n');
 }
 
 function propertyToString(obj: any, prefix: string = ''): string[] {
-  if (this.isSimpleValue(obj)) {
-    return [`${prefix}=${this.simpleValueToString(obj)}`];
+  if (isSimpleValue(obj)) {
+    return [`${prefix}=${simpleValueToString(obj)}`];
   }
   const res: string[] = [];
   const isArray: boolean = obj instanceof Array;
@@ -24,7 +24,7 @@ function propertyToString(obj: any, prefix: string = ''): string[] {
     } else {
       newPrefix = (prefix ? `${prefix}.` : '') + key;
     }
-    res.push(...this.propertyToString(obj[key], newPrefix));
+    res.push(...propertyToString(obj[key], newPrefix));
   }
   return res;
 }
