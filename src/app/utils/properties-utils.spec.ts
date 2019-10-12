@@ -2,12 +2,26 @@ import {stringifyProperties} from './properties-utils';
 import {safeLoad} from 'js-yaml';
 
 describe('PropertiesUtils', () => {
+
+  it('should convert simple property', () => {
+    const testObj = 'xxxx';
+    expect(stringifyProperties(testObj)).toEqual('value=xxxx');
+  });
+
   it('should convert one property yaml', () => {
     const testObj = {property: 'value'};
     expect(stringifyProperties(testObj)).toEqual('property=value');
   });
 
-  it('should convert array yaml', () => {
+  it('should convert array', () => {
+    const testObj = [1, 2, 3, {property: 'value'}];
+    expect(stringifyProperties(testObj)).toEqual('[0]=1\n' +
+      '[1]=2\n' +
+      '[2]=3\n' +
+      '[3].property=value');
+  });
+
+  it('should convert one property array', () => {
     const testObj = {property: [1, 2, 3, 4]};
     expect(stringifyProperties(testObj)).toEqual('property[0]=1\n' +
       'property[1]=2\n' +

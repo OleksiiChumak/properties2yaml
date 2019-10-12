@@ -2,18 +2,18 @@ export class PropertiesError extends Error {
 
 }
 
+const DEFAULT_PROPERTY_NAME = 'value';
+
 export function stringifyProperties(obj: any): string {
-  if (Object.keys(obj).length === 0) {
-    throw new PropertiesError('Cannot convert constant to properties');
-  } else if (obj instanceof Array) {
-    throw new PropertiesError('Cannot convert Array to properties');
+  if (isSimpleValue(obj)) {
+    return toProperty(DEFAULT_PROPERTY_NAME, obj);
   }
   return propertyToString(obj).join('\n');
 }
 
 function propertyToString(obj: any, prefix: string = ''): string[] {
   if (isSimpleValue(obj)) {
-    return [`${prefix}=${simpleValueToString(obj)}`];
+    return [toProperty(prefix, obj)];
   }
   const res: string[] = [];
   const isArray: boolean = obj instanceof Array;
@@ -27,6 +27,10 @@ function propertyToString(obj: any, prefix: string = ''): string[] {
     res.push(...propertyToString(obj[key], newPrefix));
   }
   return res;
+}
+
+function toProperty(key: string, value: any) {
+  return `${key}=${simpleValueToString(value)}`;
 }
 
 function simpleValueToString(obj: any): string {
