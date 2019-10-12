@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import arrowLeftBold from '@iconify/icons-mdi/arrow-left-bold';
 import arrowRightBold from '@iconify/icons-mdi/arrow-right-bold';
 import {safeLoad} from 'js-yaml';
-import {PropertiesUtils} from '../utils/properties-utils';
+import {stringifyProperties} from '../utils/properties-utils';
 
 @Component({
   selector: 'app-yaml-to-properties-converter',
@@ -31,7 +31,7 @@ martin:
     try {
       const yamlObj = safeLoad(this.yamlText);
       this.yamlAlert = null;
-      this.propertiesText = PropertiesUtils.stringify(yamlObj);
+      this.propertiesText = stringifyProperties(yamlObj);
     } catch (e) {
       this.yamlAlert = e.message;
     }
