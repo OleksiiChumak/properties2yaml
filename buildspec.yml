@@ -10,7 +10,7 @@ phases:
     commands:
       - rm -f /etc/machine-id
 #      - dbus-uuidgen --ensure=/etc/machine-id
-      - ln -sf /etc/machine-id /var/lib/dbus/machine-id
+      - ln -sf /etc/machine-id /var/db/dbus/machine-id
 #      - ln -s /var/lib/dbus/machine-id /etc/machine-id
       - npm run build:$ENVIRONMENT
       - aws s3 sync dist/yaml2properties $S3_BUCKET --delete
