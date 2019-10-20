@@ -17,7 +17,7 @@ martin:
     name: Martin D'vloper
     job: Developer
     skill: Elite`;
-  yamlAlert: string;
+  alert: string;
   propertiesText: string;
 
   constructor() {
@@ -28,18 +28,30 @@ martin:
   }
 
   convertYamlToProperties() {
+    this.clearAlert();
     try {
       const yamlObj = safeLoad(this.yamlText);
-      this.yamlAlert = null;
       this.propertiesText = stringifyProperties(yamlObj);
     } catch (e) {
-      this.yamlAlert = e.message;
+      this.setAlert(e.message);
     }
   }
 
   convertPropertiesToYaml() {
-    const propertiesObj = plainObjectToComplex(parseProperties(this.propertiesText));
-    this.yamlAlert = null;
-    this.yamlText = safeDump(propertiesObj);
+    this.clearAlert();
+    try {
+      const propertiesObj = plainObjectToComplex(parseProperties(this.propertiesText));
+      this.yamlText = safeDump(propertiesObj);
+    } catch (e) {
+      this.setAlert(e.message);
+    }
+  }
+
+  private clearAlert(): void {
+    this.alert = null;
+  }
+
+  private setAlert(msg: string): void {
+    this.alert = msg;
   }
 }

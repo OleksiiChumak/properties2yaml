@@ -1,4 +1,11 @@
 <div class="container fill-height">
+  <div class="row">
+    <div class="col-sm">
+      <div *ngIf="!!alert" class="alert alert-danger" role="alert">
+        {{alert}}
+      </div>
+    </div>
+  </div>
   <div class="row fill-height">
     <div class="col-sm">
       <app-properties-editor [(text)]="propertiesText"></app-properties-editor>
@@ -13,9 +20,6 @@
       </button>
     </div>
     <div class="col-sm">
-      <div *ngIf="!!yamlAlert" class="alert alert-danger" role="alert">
-        {{yamlAlert}}
-      </div>
       <app-yaml-editor [(text)]="yamlText"></app-yaml-editor>
     </div>
   </div>
