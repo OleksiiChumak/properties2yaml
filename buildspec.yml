@@ -10,8 +10,8 @@ phases:
     commands:
       - npm run build:$ENVIRONMENT
       - aws s3 sync dist/yaml2properties $S3_BUCKET --delete
-artifacts:
-  files:
-    - '**/*'
-  base-directory: 'dist*'
-  discard-paths: yes
+#artifacts:
+#  files:
+#    - '**/*'
+#  base-directory: 'dist*'
+#  discard-paths: yes
