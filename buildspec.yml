@@ -8,7 +8,8 @@ phases:
 #      - npm install -g @angular/cli
   build:
     commands:
-      - systemd-machine-id-setup
+      - rm -f /etc/machine-id
+      - dbus-uuidgen --ensure=/etc/machine-id
 #      - ln -sf /etc/machine-id /var/lib/dbus/machine-id
 #      - ln -s /var/lib/dbus/machine-id /etc/machine-id
       - npm run build:$ENVIRONMENT
