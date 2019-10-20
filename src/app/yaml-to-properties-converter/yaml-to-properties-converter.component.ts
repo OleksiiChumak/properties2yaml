@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import arrowLeftBold from '@iconify/icons-mdi/arrow-left-bold';
 import arrowRightBold from '@iconify/icons-mdi/arrow-right-bold';
 import {safeDump, safeLoad} from 'js-yaml';
-import {parseProperties, stringifyProperties} from '../utils/properties-utils';
+import {parseProperties, plainObjectToComplex, stringifyProperties} from '../utils/properties-utils';
 
 @Component({
   selector: 'app-yaml-to-properties-converter',
@@ -38,7 +38,7 @@ martin:
   }
 
   convertPropertiesToYaml() {
-    const propertiesObj = parseProperties(this.propertiesText);
+    const propertiesObj = plainObjectToComplex(parseProperties(this.propertiesText));
     this.yamlAlert = null;
     this.yamlText = safeDump(propertiesObj);
   }

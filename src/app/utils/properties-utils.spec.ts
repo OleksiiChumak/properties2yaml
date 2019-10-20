@@ -1,7 +1,95 @@
-import {parseProperties, stringifyProperties} from './properties-utils';
+import {parseProperties, plainObjectToComplex, stringifyProperties} from './properties-utils';
 import {safeLoad} from 'js-yaml';
 
 describe('PropertiesUtils', () => {
+
+  it('should convert complex object array', () => {
+    const testObj = {
+      'aaa.bbb.ccc[0]': 'c1',
+      'aaa.bbb.ccc[1]': 'c2',
+      'aaa.bbb.ccc[2]': 'c3',
+      'aaa.www[0].k1': 'v1',
+      'aaa.www[0].k2': 'v2',
+      'aaa.www[1].j': 'v3',
+    };
+    const res = plainObjectToComplex(testObj);
+    expect(res).toEqual({
+      aaa: {
+        bbb: {
+          ccc: ['c1', 'c2', 'c3']
+        },
+        www: [{
+          k1: 'v1',
+          k2: 'v2'
+        }, {j: 'v3'}]
+      }
+    });
+  });
+
+  it('should convert complex root object array', () => {
+    const testObj = {
+      '[0]': 'c1',
+      '[1]': 'c2',
+      '[2]': 'c3',
+      '[3].k1': 'v1',
+      '[3].k2': 'v2'
+    };
+    const res = plainObjectToComplex(testObj);
+    expect(res).toEqual(['c1', 'c2', 'c3', {
+      k1: 'v1',
+      k2: 'v2'
+    }]);
+  });
+
+  it('should not convert complex root object array', () => {
+    const testObj = {
+      '[0]': 'c1',
+      '[1]': 'c2',
+      '[2]': 'c3',
+      'x.k1': 'v1'
+    };
+    const res = plainObjectToComplex(testObj);
+    expect(res).toEqual({
+      0: 'c1',
+      1: 'c2',
+      2: 'c3',
+      x: {
+        k1: 'v1'
+      }
+    });
+  });
+
+  it('should convert to complex object', () => {
+    const testObj = {
+      'aaa.bbb.ccc': 'a',
+      'aaa.bbb.kkk': 'b',
+      ggg: 'v'
+    };
+    const res = plainObjectToComplex(testObj);
+    expect(res).toEqual({
+      aaa: {
+        bbb: {
+          ccc: 'a',
+          kkk: 'b'
+        }
+      },
+      ggg: 'v'
+    });
+  });
+
+  it('should override complex object', () => {
+    const testObj = {
+      'aaa.bbb.ccc': '1',
+      'aaa.bbb.kkk': '2',
+      'aaa.bbb': 'XXX'
+    };
+    const res = plainObjectToComplex(testObj);
+    expect(res).toEqual({
+      aaa: {
+        bbb: 'XXX'
+      }
+    });
+  });
 
   it('should parse path property', () => {
     const testObj = 'path=c:\\\\wiki\\\\templates';
@@ -12,10 +100,12 @@ describe('PropertiesUtils', () => {
   });
 
   it('should parse unicode property', () => {
-    const testObj = 'tab : \\u0009';
+    const testObj = `tab : \\u0009
+tab2: X\\u0009X`;
     const res = parseProperties(testObj);
     expect(res).toEqual({
-      tab: '\t'
+      tab: '\t',
+      tab2: 'X\tX'
     });
   });
 
@@ -136,5 +226,4 @@ lll\\
       '3 A-Levels\\\n' +
       'BSc in the Internet of Things\\\n');
   });
-
 });

@@ -34,6 +34,82 @@ export function parseProperties(props: string): any {
   return res;
 }
 
+export function plainObjectToComplex(obj: any): any {
+  const props = Object.keys(obj).map(key => ({
+    path: splitKey(key),
+    value: obj[key]
+  }));
+  const res = {};
+  for (const prop of props) {
+    let curObj = res;
+    for (let i = 0; i < prop.path.length - 1; i++) {
+      const key = prop.path[i];
+      if (typeof curObj[key] === 'undefined') {
+        curObj[key] = {};
+      }
+      curObj = curObj[key];
+    }
+    curObj[prop.path[prop.path.length - 1]] = prop.value;
+  }
+  return optimizeObject(res);
+}
+
+function optimizeObject(obj): any {
+  if (isSimpleValue(obj)) {
+    return obj;
+  }
+  const indexes = Object.keys(obj).map(value => Number(value));
+  const isArray = indexes.every(value => !isNaN(value));
+  const res = isArray ? [] : {};
+  if (isArray) {
+    indexes.forEach(key => res[key] = optimizeObject(obj[key]));
+  } else {
+    Object.keys(obj).forEach(key => res[key] = optimizeObject(obj[key]));
+  }
+  return res;
+}
+
+function splitKey(key: string): string [] {
+  const res = [];
+  const props = key.split('.').map(value => parseArrayKeyIndex(value));
+  for (const prop of props) {
+    for (const subKey of prop) {
+      res.push(subKey);
+    }
+  }
+  return res;
+}
+
+function parseArrayKeyIndex(key: string): string[] {
+  if (key.length < 3) {
+    return [key];
+  }
+  if (key[key.length - 1] !== ']') {
+    return [key];
+  }
+  let i = key.length - 2;
+  for (; i > 0; i--) {
+    if (key[i] < '0' || key[i] > '9') {
+      break;
+    }
+  }
+  if (key[i] !== '[') {
+    return [key];
+  }
+  if (i === key.length - 2) {
+    return [key];
+  }
+
+  const firstKey = key.substr(0, i);
+  const secondKey = key.substr(i + 1, key.length - 2 - i);
+
+  if (firstKey.length > 0) {
+    return [firstKey, secondKey];
+  } else {
+    return [secondKey];
+  }
+}
+
 function stringToSimpleValue(value: string): any {
   let res = '';
   for (let i = 0; i < value.length; i++) {
@@ -50,7 +126,7 @@ function stringToSimpleValue(value: string): any {
           break;
         case 'u':
           if (i < value.length - 4) {
-            const charCodeStr = value.substr(i + 1, i + 6);
+            const charCodeStr = value.substr(i + 1, 4);
             nextAppend = String.fromCodePoint(parseInt(charCodeStr, 16));
             i += 4;
           } else {
