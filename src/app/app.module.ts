@@ -8,23 +8,19 @@ import {PropertiesEditorComponent} from './properties-editor/properties-editor.c
 import {YamlEditorComponent} from './yaml-editor/yaml-editor.component';
 import {IconModule} from '@visurel/iconify-angular';
 import { YamlToPropertiesConverterComponent } from './yaml-to-properties-converter/yaml-to-properties-converter.component';
-import { InfoComponent } from './info/info.component';
-import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     PropertiesEditorComponent,
     YamlEditorComponent,
-    YamlToPropertiesConverterComponent,
-    InfoComponent
+    YamlToPropertiesConverterComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     AceEditorModule,
-    IconModule,
-    AppRoutingModule
+    IconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
